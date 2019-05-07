@@ -21,7 +21,7 @@ public:
     void setLastSession(QString userId, QString session) { setValue(userId + "/last-session", session); }
 };
 
-#define CONFIG_FILE "/usr/share/lightdm/lightdm-hvl-greeter.conf.d/hvl-lightdm-greeter.conf"
+#define CONFIG_FILE "/usr/share/lightdm/lightdm-pisi-greeter.conf/pisi-lightdm-greeter.conf"
 
 #define BACKGROUND_IMAGE_DIR_KEY "greeter-background-image-dir"
 #define BACKGROUND_IMAGE_KEY "greeter-background-image"
@@ -37,7 +37,7 @@ public:
 class Settings : public QSettings
 {
 public:
-    Settings() : QSettings(QString("/usr/share/lightdm/lightdm-hvl-greeter.conf.d/hvl-lightdm-greeter.conf"), QSettings::NativeFormat) {}
+    Settings() : QSettings(QString("/usr/share/lightdm/lightdm-pisi-greeter.conf/pisi-lightdm-greeter.conf"), QSettings::NativeFormat) {}
     QString iconThemeName_loginform() { return value("greeter-icon-theme").toString(); }
     QStringList backgroundImagePath() { return value("greeter-background-image").toStringList(); }
     QString offsetX_loginform() { return value("loginform-offset-x").toString(); }
