@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Pisi LightDM Greeter
+Comment=This runs the Pisi LightDM greeter, it should only be run from LightDM
+Exec=pisi-lightdm-greeter --no-sandbox
+Type=Application
+X-Ubuntu-Gettext-Domain=lightdm
