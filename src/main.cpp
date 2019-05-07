@@ -88,9 +88,9 @@ int main(int argc, char *argv[])
 
     QTranslator translator;
 
-    if(!translator.load(locale, "/usr/share/lightdm/lightdm-pisi-greeter.conf.d/lang")){
+    if(!translator.load(locale, "/usr/share/lightdm/lightdm-pisi-greeter.conf/lang")){
 
-        if(!translator.load(locale.section('_', 0, 0) , "/usr/share/lightdm/lightdm-pisi-greeter.conf.d/lang")){
+        if(!translator.load(locale.section('_', 0, 0) , "/usr/share/lightdm/lightdm-pisi-greeter.conf/lang")){
             qInfo() << "Failed to load translator file for locale  " + locale;
         }
     }
