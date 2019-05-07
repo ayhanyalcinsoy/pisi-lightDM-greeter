@@ -4,5 +4,5 @@ add_subdirectory(src)
 
 
 install(FILES  pisi-lightdm-greeter.desktop  DESTINATION /usr/share/xgreeters)
-install(FILES pisi-lightdm-greeter.conf DESTINATION /usr/share/lightdm/lightdm-pisi-greeter.conf.d)
+install(FILES pisi-lightdm-greeter.conf DESTINATION /usr/share/lightdm/lightdm-pisi-greeter.conf)
 

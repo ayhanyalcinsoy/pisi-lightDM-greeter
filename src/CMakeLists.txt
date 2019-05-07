@@ -57,5 +57,5 @@ target_link_libraries ( pisi-lightdm-greeter Qt5::Widgets Qt5::Network Qt5::WebE
 
 
 install(TARGETS ${PROJECT} RUNTIME DESTINATION bin)
-install(FILES ${QM_FILES} DESTINATION /usr/share/lightdm/lightdm-pisi-greeter.conf.d/lang)
+install(FILES ${QM_FILES} DESTINATION /usr/share/lightdm/lightdm-pisi-greeter.conf/lang)
 
