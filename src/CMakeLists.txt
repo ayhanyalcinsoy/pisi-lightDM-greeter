@@ -2,11 +2,7 @@ set(PROJECT pisi-lightdm-greeter)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
-set(LIGHTDM_QT_LIBRARIES /usr/lib/x86_64-linux-gnu/liblightdm-qt5-3.so)
 set(LIGHTDM_QT_INCLUDE_DIRS /usr/include/lightdm-qt5-3)
-set(LIGHTDM_X11_LIBRARIES /usr/lib/libX11.so)
-set(LIGHTDM_X11_EXTRA_LIBRARIES /usr/lib/libQt5X11Extras.so)
-set(LIGHTDM_XCURSOR_LIBRARIES /usr/lib/libXcursor.so /usr/lib/libXrandr.so)
 
 
 
@@ -53,7 +49,7 @@ add_custom_target(translations DEPENDS ${QM_FILES})
 
 add_executable (pisi-lightdm-greeter ${SRCS} ${RSCS} ${QM_FILES})
 
-target_link_libraries ( pisi-lightdm-greeter Qt5::Widgets Qt5::Network Qt5::WebEngine Qt5::WebEngineCore Qt5::Quick Qt5::WebEngineWidgets ${LIGHTDM_QT_LIBRARIES} ${LIGHTDM_X11_LIBRARIES} ${LIGHTDM_X11_EXTRA_LIBRARIES} ${LIGHTDM_XCURSOR_LIBRARIES})
+target_link_libraries ( pisi-lightdm-greeter Qt5::Widgets Qt5::Network Qt5::WebEngine Qt5::WebEngineCore Qt5::Quick Qt5::WebEngineWidgets lightdm-qt5-3 X11 Xcursor Xrandr Qt5X11Extras)
 
 
 install(TARGETS ${PROJECT} RUNTIME DESTINATION bin)
