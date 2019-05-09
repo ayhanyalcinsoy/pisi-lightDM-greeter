@@ -98,7 +98,7 @@ int SettingsForm::CheckService(QString Service){
 
     tmpstring = "";
 
-    QString command = "systemctl status " + Service;
+    QString command = "service status " + Service;
     QByteArray commandba = command.toLocal8Bit();
 
     fp = popen(commandba.data(), "r");

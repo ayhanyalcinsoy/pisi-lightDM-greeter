@@ -61,7 +61,7 @@ void NetworkDialog::on_restartservicebutton_clicked()
     close();
     hidden  =true;
 
-    sprintf(cmd_array, "systemctl restart %s &",setcommand);
+    sprintf(cmd_array, "service restart %s &",setcommand);
     system(cmd_array);
 
     emit servicereset();
