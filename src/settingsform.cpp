@@ -98,7 +98,7 @@ int SettingsForm::CheckService(QString Service){
 
     tmpstring = "";
 
-    QString command = "service status " + Service;
+    QString command = "service " + Service + " status";
     QByteArray commandba = command.toLocal8Bit();
 
     fp = popen(commandba.data(), "r");

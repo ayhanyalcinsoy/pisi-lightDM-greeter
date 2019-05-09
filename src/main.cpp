@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
     qDebug() << "pisi-lightdm is starting now";
 
 
-    system("/usr/lib/at-spi2/at-spi-bus-launcher --launch-immediately &");
+    system("/usr/libexec/at-spi2/at-spi-bus-launcher --launch-immediately &");
 
     QString locale = QLocale::system().name();
 
