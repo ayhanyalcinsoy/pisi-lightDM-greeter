@@ -6,7 +6,7 @@
 ![GitHub](https://img.shields.io/github/tag/aciklab/Hvl-Lightdm-Greeter.svg)
 ![GitHub](https://img.shields.io/github/license/aciklab/Hvl-Lightdm-Greeter.svg)
 
-# pisi-lightdm-greeter 
+# pisi-lightdm-greeter
 
 [ENGLISH](https://github.com/aciklab/Hvl-Lightdm-Greeter/blob/master/README_EN.md)
 
@@ -14,10 +14,10 @@
 
 pisi-lightdm-greeter, lightdm yüklü sistemlerde kullanılabilecek bir giriş ekranı uygulamasıdır.  [qt-lightdm-greeter](https://github.com/surlykke/qt-lightdm-greeter) 'dan esinlenilerek c++ ve qt ile yazılmıştır.
 
-Bu giriş ekranı, süresi dolmuş parolaları sıfırlama imkanı verebilmektedir (Windows aktif dizin hesapları ve yerel kullanıcı hesapları ile test edilmiştir). 
+Bu giriş ekranı, süresi dolmuş parolaları sıfırlama imkanı verebilmektedir (Windows aktif dizin hesapları ve yerel kullanıcı hesapları ile test edilmiştir).
 Eğer bir parolanın değiştirlmesi gerekiyorsa giriş sırasında kullanıcının parolasını sıfırlaması istenir. Arkasından parola sıfırlama sayfası açılarak kullanıcının parolasını sıfırlaması sağlanır.
 
-## Özellikler 
+## Özellikler
 
 * Oturum açmadan ağ bağlantısı gerçekleşmesi durumunda IP adresi ve istenilen servislerin durumunun gözükebilmesi, istenildiği taktirde logların izlenebilmesi.
 * Bir web servis aracılığı ile selfservis parola sıfırlama uygulaması varsa ona qtwebengine ile bağlantı eklenebilmesi.
@@ -52,7 +52,7 @@ Giriş ekranı Pisi 2.x üzerinde test edilmiştir.
 
 ### Derleme
 
-Kodu derlemek için, 
+Kodu derlemek için,
 - qt5-base-devel
 - extra-cmake-modules
 - qt5-webengine-devel
@@ -67,7 +67,7 @@ paketlerinin sisteminizde kurulu olduğuna emin olun
 
 Çalıştırmak için bağımlılıklar şunlardır: lightdm, qt5-webengine, liblightdm-qt5, libX11, libXcursor, qt5-x11extras
 
-Kurlum için, aşağıdaki komutları çalıştırın:
+Kurulum için, aşağıdaki komutları çalıştırın:
 
 ```shell
 git clone https://github.com/mertcelen/Hvl-Lightdm-Greeter.git
@@ -75,14 +75,14 @@ cd Pisi-Lightdm-Greeter
 mkdir build
 cd build
 cmake ..
-make 
+make
 sudo make install
 ```
  `/etc/lightdm/lightdm.conf`, dosyası içinde, `SeatDefaults` bölümü altına aşağıdaki satırı ekleyin ya da başka bir değere atanmışsa güncelleyin:
 
     greeter-session=pisi-lightdm-greeter
 
-Eğer böyle bir dosya mevcut değilse oluşturun.	
+Eğer böyle bir dosya mevcut değilse oluşturun.
 
 ### Pisi 2.x üzerine kurulum
 
@@ -93,8 +93,8 @@ sudo pisi it lightdm-pisi-greeter
 
 ## Yapılandırma
 
-`/usr/share/lightdm/lightdm-pisi-greeter.conf.d/pisi-lightdm-greeter.conf` dosyası içinde kullanılabilecek çeşitli konfigürasyon seçenekleri bulunmaktadır. Örnek olarak: 
-	-Arka plan resmi, 
-	-Giriş, saat ve ayar formlarının pozisyonları, 
+`/usr/share/lightdm/lightdm-pisi-greeter.conf.d/pisi-lightdm-greeter.conf` dosyası içinde kullanılabilecek çeşitli konfigürasyon seçenekleri bulunmaktadır. Örnek olarak:
+	-Arka plan resmi,
+	-Giriş, saat ve ayar formlarının pozisyonları,
 	-Beklenmesi gereken servisler vb..
-Bu dosya içinde detaylı açıklamalar yapılmıştır. 
+Bu dosya içinde detaylı açıklamalar yapılmıştır.
