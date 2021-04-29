@@ -106,7 +106,7 @@ QComboBox::down-arrow {
          <string>Shutdown</string>
         </property>
         <property name="icon">
-         <iconset resource="pisi-lightdm-greeter.qrc">
+         <iconset resource="hvl-lightdm-greeter.qrc">
           <normaloff>:/resources/shutdown.png</normaloff>:/resources/shutdown.png</iconset>
         </property>
         <property name="iconSize">
@@ -141,7 +141,7 @@ QComboBox::down-arrow {
          <string>Hibernate</string>
         </property>
         <property name="icon">
-         <iconset resource="pisi-lightdm-greeter.qrc">
+         <iconset resource="hvl-lightdm-greeter.qrc">
           <normaloff>:/resources/sleep.png</normaloff>:/resources/sleep.png</iconset>
         </property>
         <property name="iconSize">
@@ -176,7 +176,7 @@ QComboBox::down-arrow {
          <string>Suspend</string>
         </property>
         <property name="icon">
-         <iconset resource="pisi-lightdm-greeter.qrc">
+         <iconset resource="hvl-lightdm-greeter.qrc">
           <normaloff>:/resources/sleep.png</normaloff>:/resources/sleep.png</iconset>
         </property>
         <property name="iconSize">
@@ -211,7 +211,7 @@ QComboBox::down-arrow {
          <string>Restart</string>
         </property>
         <property name="icon">
-         <iconset resource="pisi-lightdm-greeter.qrc">
+         <iconset resource="hvl-lightdm-greeter.qrc">
           <normaloff>:/resources/restart.png</normaloff>:/resources/restart.png</iconset>
         </property>
         <property name="iconSize">
@@ -231,7 +231,7 @@ QComboBox::down-arrow {
   </layout>
  </widget>
  <resources>
-  <include location="pisi-lightdm-greeter.qrc"/>
+  <include location="hvl-lightdm-greeter.qrc"/>
  </resources>
  <connections/>
 </ui>

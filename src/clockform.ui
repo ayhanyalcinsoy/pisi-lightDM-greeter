@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>324</width>
-    <height>264</height>
+    <width>286</width>
+    <height>255</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -42,6 +42,12 @@
 </string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QFrame" name="frame">
      <property name="sizePolicy">
@@ -66,9 +72,15 @@
      <property name="frameShadow">
       <enum>QFrame::Plain</enum>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="5,2,3">
+     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="5,0,2">
       <property name="spacing">
        <number>15</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
       </property>
       <item>
        <widget class="QLabel" name="clockLabel">
@@ -81,7 +93,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>80</height>
+          <height>0</height>
          </size>
         </property>
         <property name="maximumSize">
@@ -92,10 +104,10 @@
         </property>
         <property name="font">
          <font>
-          <family>Nimbus Sans L</family>
-          <pointsize>75</pointsize>
-          <weight>50</weight>
-          <bold>false</bold>
+          <family>Noto Sans</family>
+          <pointsize>50</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
          </font>
         </property>
         <property name="text">
@@ -107,11 +119,29 @@
        </widget>
       </item>
       <item>
+       <widget class="QLabel" name="dateLabel">
+        <property name="font">
+         <font>
+          <family>Noto Sans</family>
+          <pointsize>30</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>21.15.18</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLabel" name="dayLabel">
         <property name="font">
          <font>
-          <family>Nimbus Sans L</family>
-          <pointsize>35</pointsize>
+          <family>Noto Sans</family>
+          <pointsize>20</pointsize>
           <weight>50</weight>
           <bold>false</bold>
          </font>
@@ -120,25 +150,7 @@
          <enum>QFrame::Plain</enum>
         </property>
         <property name="text">
-         <string>CUMARTESİ</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="dateLabel">
-        <property name="font">
-         <font>
-          <family>Nimbus Sans L</family>
-          <pointsize>35</pointsize>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>21.15.18</string>
+         <string/>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>

@@ -3,6 +3,7 @@
 #include "ui_settingsform.h"
 #include <QWidget>
 #include <QLightDM/UsersModel>
+#include <QLightDM/SessionsModel>
 #include <QNetworkInterface>
 #include <QTimer>
 #include <QToolTip>
@@ -11,6 +12,7 @@
 #include <QApplication>
 #include <QThread>
 #include <QMessageBox>
+#include <QDir>
 
 #include "settings.h"
 #include "networkdialog.h"
@@ -25,18 +27,64 @@
 
 QString SettingsForm::current_layout = NULL;
 
+
+const int KeyRole = QLightDM::SessionsModel::KeyRole;
 SettingsForm::SettingsForm(QWidget *parent) :
     QWidget(parent),
+    sessionsModel(QLightDM::SessionsModel::LocalSessions,this),
     ui(new Ui::SettingsForm)
 {
+    int i,j;
+    QString lastsession;
+    QString user;
 
     ui->setupUi(this);
 
     initialize();
+    winClicked = false;
+
 
     qDebug() << tr("SettingsForm is initializing");
 
     timer = new QTimer();
+
+
+    //ui->sessioncomboBox->setModel(&sessionsModel);
+
+    // qDebug() <<"---"<< sessionsModel.rowCount(QModelIndex());
+
+    //qm.setPixel(1,qRgba(33, 67, 106, 100));
+    //QPixmap iconsession(":/resources/login_1_1_bos.png");
+    QPixmap iconsession(2,30);
+
+    // iconsession.fill(qRgba(0x1B, 0x6C, 0xBD, 0xFF));
+    iconsession.fill(QColor(0x1B, 0x6C, 0xBD, 0));
+
+    for(i = 0; i< sessionsModel.rowCount(QModelIndex()); i++){
+
+        ui->sessioncomboBox->addItem(iconsession, sessionsModel.data(sessionsModel.index(i, 0), KeyRole).toString(), sessionsModel.data(sessionsModel.index(i, 0), KeyRole).toString());
+
+    }
+
+    // ui->sessioncomboBox->setItemIcon(1, QIcon(iconsession));
+    //ui->sessioncomboBox->setItemIcon(0, QIcon(iconsession));
+    //ui->sessioncomboBox->setItemIcon(-1, QIcon(iconsession));
+
+
+    user = Cache().getLastUser();
+    lastsession = Cache().getLastSession(user);
+
+    if(!lastsession.isEmpty() && !lastsession.isNull()){
+        for(i = 0; i< ui->sessioncomboBox->count(); i++){
+
+            if (lastsession == sessionsModel.data(sessionsModel.index(i, 0), KeyRole).toString()) {
+                ui->sessioncomboBox->setCurrentIndex(i);
+            }
+
+        }
+    }else{
+        ui->sessioncomboBox->setCurrentIndex(0);
+    }
 
     nwDialog = new NetworkDialog();
     nwDialog->setWindowFlags(Qt::Popup | Qt::FramelessWindowHint);
@@ -63,7 +111,11 @@ SettingsForm::SettingsForm(QWidget *parent) :
     connect(timer, SIGNAL(timeout()), this, SLOT(timer_finished()));
 
 
+    connect(this, SIGNAL(selectKeyboard(int)), this, SLOT(setKeyboardLayout(int)));
 
+    batteryInit();
+
+    checkNetwork();
 }
 
 SettingsForm::~SettingsForm()
@@ -77,12 +129,10 @@ SettingsForm::~SettingsForm()
 
 void SettingsForm::initialize(){
 
-
     serviceList = Settings().getservices();
-
-    getKeyboardLayouts();
-    ui->kybrdcomboBox->setCurrentText("tr");
     connect(ui->kybrdcomboBox, SIGNAL(activated(int)), this, SLOT(setKeyboardLayout(int)));
+    getKeyboardLayouts();
+
     nwButtonPressed = false;
 }
 
@@ -98,7 +148,7 @@ int SettingsForm::CheckService(QString Service){
 
     tmpstring = "";
 
-    QString command = "service " + Service + " status";
+    QString command = "systemctl status " + Service;
     QByteArray commandba = command.toLocal8Bit();
 
     fp = popen(commandba.data(), "r");
@@ -166,6 +216,8 @@ void SettingsForm::checkNetwork(){
     uint ip_count = 0;
     int res;
 
+
+    checkBattery();
     int runningServices = 0;
 
     ip_string += "  IP:\n";
@@ -244,7 +296,7 @@ void SettingsForm::checkNetwork(){
 
     network_check_counter++;
 
-    ui->textEdit->setText(ip_string);
+
 
 }
 
@@ -274,19 +326,19 @@ void SettingsForm::on_NwpushButton_clicked()
 
     }
 
-    nwDialog->setFixedHeight((line_count + 1) * 20);
-    nwDialog->setFixedWidth(this->width());
+    nwDialog->setFixedHeight((line_count + 1) * 30 + 50);
+    nwDialog->setFixedWidth(this->width() + 200);
     QPoint pt_g = QWidget::mapToGlobal(this->pos());
     QPoint pt = this->pos();
 
-    uint labelx = ((pt_g.x() - pt.x())+ this->width()/2) - (nwDialog->width() / 2);
+    uint labelx = ((pt_g.x() - pt.x())+ (this->width() - 200)/2) - ((nwDialog->width()) / 2);
 
     nwDialog->logButtonClicked = false;
     nwDialog->SetText(networkInfoString);
 
-    nwDialog->setGeometry(labelx, (pt_g.y() - pt.y()) - ((line_count + 1) * 20), 0, 0);
-    nwDialog->setFixedHeight((line_count + 1) * 20);
-    nwDialog->setFixedWidth(this->width());
+    nwDialog->setGeometry(labelx, (pt_g.y() - pt.y()) - ((line_count + 1) * 30 + 50), 0, 0);
+    nwDialog->setFixedHeight((line_count + 1) * 30 + 50);
+    nwDialog->setFixedWidth(this->width() + 200);
 
     nwDialog->exec();
     nwDialog->clearFocus();
@@ -302,6 +354,7 @@ void SettingsForm::getKeyboardLayouts(){
     QString  tmpstring;
     QString outstr;
     int read_size;
+    QString cachedlayout;
 
     tmpstring = "";
 
@@ -343,10 +396,28 @@ void SettingsForm::getKeyboardLayouts(){
     ui->kybrdcomboBox->addItem(iconx, "Türkçe F", "tr f");
     ui->kybrdcomboBox->addItem(iconx, "English Q", "us");
 
+    cachedlayout = Cache().getUserKeyboard();
+
+    if(!cachedlayout.isEmpty() && !cachedlayout.isNull())
+        tmpstring = cachedlayout;
 
     qInfo() << "Current Keyboard layout is: " +  tmpstring;
     emit sendKeyboardLayout(tmpstring);
     current_layout = tmpstring;
+
+    QByteArray ba;
+    char *setcommand;
+    char cmd_array[256];
+
+    ba = tmpstring.toLatin1();
+
+    setcommand = ba.data();
+
+    sprintf(cmd_array, "/usr/bin/setxkbmap %s &",setcommand);
+
+    system(cmd_array);
+
+    Cache().setUserKeyboard(tmpstring);
 
 
     if(ui->kybrdcomboBox->findData(tmpstring) == -1){
@@ -384,10 +455,11 @@ void SettingsForm::setKeyboardLayout(int index){
 
     system(cmd_array);
 
+    Cache().setUserKeyboard(actionName);
+
     //set onscreen keyboard layout
     emit sendKeyboardLayout(actionName);
 }
-
 
 
 QString SettingsForm::getValueOfString(QString data, QString value){
@@ -438,7 +510,7 @@ void SettingsForm::keyPressEvent(QKeyEvent *event)
 {
 
     if (event->key() == Qt::Key_Up || event->key() == Qt::Key_Down) {
-
+        winClicked = false;
         if(ui->kybrdcomboBox->isActiveWindow()){
 
         }
@@ -452,15 +524,27 @@ void SettingsForm::keyPressEvent(QKeyEvent *event)
         }
     }else if(event->key() == Qt::Key_Escape){
 
+        winClicked = false;
         clearFocus();
 
         ui->kybrdcomboBox->clearFocus();
         ui->NwpushButton->clearFocus();
 
 
+    } else if(event->key() == Qt::Key_Meta){
+
+        winClicked = true;
+
+
+    }else if(event->key() == Qt::Key_Space){
+
+        if(winClicked)
+            keyboardSelect();
+        winClicked = false;
+
     }else{
 
-
+        winClicked = false;
         QWidget::keyPressEvent(event);
     }
 
@@ -474,4 +558,128 @@ void SettingsForm::sendNWStatus(bool nwstatus){
 
 void SettingsForm::networkCheckSlot(){
     checkNetwork();
+
+}
+
+
+void SettingsForm::updateHostName(QString hostname){
+
+    ui->hostnamelabel->setText(hostname);
+}
+
+
+void SettingsForm::keyboardSelectSlot(void){
+    keyboardSelect();
+}
+
+
+void SettingsForm::keyboardSelect(void){
+
+    if(ui->kybrdcomboBox->currentIndex() == 0){
+        ui->kybrdcomboBox->setCurrentIndex(1);
+        emit selectKeyboard(1);
+    }else if(ui->kybrdcomboBox->currentIndex() == 1){
+        emit selectKeyboard(0);
+        ui->kybrdcomboBox->setCurrentIndex(0);
+    }
+}
+
+
+void SettingsForm::receiveCurrentUser(QString User){
+
+    int i;
+    QString sessionstr;
+    ui->sessioncomboBox->setCurrentIndex(0);
+
+    sessionstr = Cache().getLastSession(User);
+
+    for(i = 0; i< ui->sessioncomboBox->count(); i++){
+
+        if (sessionstr == sessionsModel.data(sessionsModel.index(i, 0), KeyRole).toString()) {
+            ui->sessioncomboBox->setCurrentIndex(i);
+            break;
+        }
+
+    }
+
+    if(!sessionstr.isNull() && !sessionstr.isEmpty()){
+        emit sendSessionInfo(sessionstr);
+    }else{
+        sessionstr = sessionsModel.data(sessionsModel.index(0, 0), KeyRole).toString();
+        emit sendSessionInfo(sessionstr);
+    }
+
+}
+
+void SettingsForm::on_sessioncomboBox_activated(int index)
+{
+    QString sessionname = ui->sessioncomboBox->itemData(index).toString();
+    emit sendSessionInfo(sessionname);
+}
+
+
+
+void SettingsForm::batteryInit(void){
+
+    QDir pathDir("/sys/class/power_supply/BAT0");
+    if (pathDir.exists()){
+
+        ui->Batterybutton->setToolTipDuration(10000);
+        batteryExist = true;
+        ui->Batterybutton->show();
+    }else{
+        batteryExist = false;
+        ui->Batterybutton->hide();
+    }
+}
+
+void SettingsForm::checkBattery(void){
+
+    QFile file("/sys/class/power_supply/BAT0/capacity");
+    int level;
+
+    if(batteryExist){
+
+        if(!file.open(QIODevice::ReadOnly))
+        {
+            return;
+        }
+
+        QTextStream instream(&file);
+        QString line = instream.readLine();
+
+        level = line.toInt();
+
+        if(level > 90){
+
+            QPixmap iconx(":/resources/battery_full.png");
+            ui->Batterybutton->setIcon(iconx);
+        }else if(level <= 15){
+
+            QPixmap iconx(":/resources/battery_critical.png");
+            ui->Batterybutton->setIcon(iconx);
+
+        }else if (level <= 35){
+
+            QPixmap iconx(":/resources/battery_low.png");
+            ui->Batterybutton->setIcon(iconx);
+
+        }else if(level <= 65){
+            QPixmap iconx(":/resources/battery_normal.png");
+            ui->Batterybutton->setIcon(iconx);
+
+
+        }else if(level <= 90){
+
+            QPixmap iconx(":/resources/battery_good.png");
+            ui->Batterybutton->setIcon(iconx);
+
+        }
+
+        ui->Batterybutton->setToolTip("%" + line);
+
+        file.close();
+
+    }
+
 }

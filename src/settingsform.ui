@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>394</width>
-    <height>166</height>
+    <width>260</width>
+    <height>165</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -38,6 +38,11 @@
     border-radius: 5px;
 }
 
+#hostnamelabel {
+	color: white;
+	font-size:14px;
+    font:bold italic;
+}
 
 QComboBox,
 QPushButton {
@@ -124,9 +129,9 @@ QComboBox::down-arrow {
      <widget class="QComboBox" name="kybrdcomboBox">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>120</y>
-        <width>130</width>
+        <x>115</x>
+        <y>65</y>
+        <width>140</width>
         <height>45</height>
        </rect>
       </property>
@@ -356,8 +361,8 @@ QComboBox::down-arrow {
      <widget class="QPushButton" name="NwpushButton">
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>120</y>
+        <x>50</x>
+        <y>65</y>
         <width>60</width>
         <height>45</height>
        </rect>
@@ -381,7 +386,7 @@ QComboBox::down-arrow {
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="pisi-lightdm-greeter.qrc">
+       <iconset resource="hvl-lightdm-greeter.qrc">
         <normaloff>:/resources/ethernet-off.png</normaloff>:/resources/ethernet-off.png</iconset>
       </property>
       <property name="iconSize">
@@ -400,20 +405,71 @@ QComboBox::down-arrow {
        <number>100</number>
       </property>
      </widget>
-     <widget class="QTextEdit" name="textEdit">
+     <widget class="QLabel" name="hostnamelabel">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>331</width>
-        <height>101</height>
+        <x>44</x>
+        <y>5</y>
+        <width>211</width>
+        <height>55</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="sessioncomboBox">
+      <property name="geometry">
+       <rect>
+        <x>115</x>
+        <y>115</y>
+        <width>140</width>
+        <height>45</height>
        </rect>
       </property>
       <property name="focusPolicy">
        <enum>Qt::NoFocus</enum>
       </property>
-      <property name="textInteractionFlags">
-       <set>Qt::NoTextInteraction</set>
+      <property name="iconSize">
+       <size>
+        <width>5</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="frame">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Batterybutton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>115</y>
+        <width>60</width>
+        <height>45</height>
+       </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="hvl-lightdm-greeter.qrc">
+        <normaloff>:/resources/battery_critical.png</normaloff>:/resources/battery_critical.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>35</width>
+        <height>35</height>
+       </size>
       </property>
      </widget>
     </widget>
@@ -421,7 +477,7 @@ QComboBox::down-arrow {
   </layout>
  </widget>
  <resources>
-  <include location="pisi-lightdm-greeter.qrc"/>
+  <include location="hvl-lightdm-greeter.qrc"/>
  </resources>
  <connections/>
 </ui>

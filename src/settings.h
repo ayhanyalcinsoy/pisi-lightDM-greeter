@@ -19,9 +19,11 @@ public:
     void setLastUser(QString userId) { setValue("last-user", userId); }
     QString getLastSession(QString userId) { return value(userId + "/last-session").toString(); }
     void setLastSession(QString userId, QString session) { setValue(userId + "/last-session", session); }
+    void setUserKeyboard(QString keyboard) { setValue("keyboard", keyboard); }
+    QString getUserKeyboard() { return value("keyboard").toString(); }
 };
 
-#define CONFIG_FILE "/usr/share/lightdm/lightdm-pisi-greeter.conf/pisi-lightdm-greeter.conf"
+#define CONFIG_FILE "/usr/share/lightdm/lightdm-pisi-greeter.conf.d/pisi-lightdm-greeter.conf"
 
 #define BACKGROUND_IMAGE_DIR_KEY "greeter-background-image-dir"
 #define BACKGROUND_IMAGE_KEY "greeter-background-image"
@@ -37,7 +39,7 @@ public:
 class Settings : public QSettings
 {
 public:
-    Settings() : QSettings(QString("/usr/share/lightdm/lightdm-pisi-greeter.conf/pisi-lightdm-greeter.conf"), QSettings::NativeFormat) {}
+    Settings() : QSettings(QString("/usr/share/lightdm/lightdm-pisi-greeter.conf.d/pisi-lightdm-greeter.conf"), QSettings::NativeFormat) {}
     QString iconThemeName_loginform() { return value("greeter-icon-theme").toString(); }
     QStringList backgroundImagePath() { return value("greeter-background-image").toStringList(); }
     QString offsetX_loginform() { return value("loginform-offset-x").toString(); }
@@ -56,7 +58,11 @@ public:
     int  network_ok_timeout() { return value("network-ok-timeout").toInt(); }
     int cachedusercount(){return value("cached-user-count").toInt();}
     QString screenkeyboardenabled(){return value("screen_keyboard").toString(); }
-
+    QString passwordresetenabled(){return value("password-reset-button").toString();}
+    QString passwordresetwebpageurl(){return value("password-web-reset-webpage").toString();}
+    int screenSaver_timeout() { return value("screen-saver-timeout").toInt(); }
+    int slideShow_timeout() { return value("slide-show-timeout").toInt(); }
+    int show_domaininfo() { return value("show-domain-info").toInt(); }
 };
 
 

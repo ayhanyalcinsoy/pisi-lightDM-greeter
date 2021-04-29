@@ -32,14 +32,11 @@
 #include "keyboard.h"
 #endif
 
-#define TOOL_BUTTON_Y        100
-#define TOOL_BUTTON_HEIGHT   150
-#define TOOL_BUTTON_WIDTH    114
-#define MAX_TOOL_BUTTON_COUNT   6
-#define TOOL_BUTTON_ICON_SIZE   100
+
 #define LOGO_LABEL_SIZE     TOOL_BUTTON_ICON_SIZE
 #define TOOL_BUTTON_FONT_SIZE  12
 
+#define ANIMATION_TIME 200
 
 namespace Ui
 {
@@ -56,7 +53,10 @@ public:
     explicit LoginForm(QWidget *parent = 0);
     ~LoginForm();
     virtual void setFocus(Qt::FocusReason reason);
-
+    QString getHostname();
+    void showLoginPage(void);
+    void hideAll(void);
+     void showAll(void);
 
 public slots:
     void cancelLogin();
@@ -68,6 +68,7 @@ public slots:
 
     void authenticationComplete();
     void stopWaitOperation(const bool& networkstatus);
+    void setCurrentSession(QString &session);
 #ifdef SCREENKEYBOARD
 
     void keyboardCloseEvent();
@@ -78,10 +79,15 @@ public slots:
 protected:
     virtual void keyPressEvent(QKeyEvent *event);
     virtual void keyReleaseEvent(QKeyEvent *event);
+    virtual void  hideEvent(QHideEvent *event);
+     virtual void  showEvent(QHideEvent *event);
 
 Q_SIGNALS:
     void sendKeyboardRequest(QPoint from, int width);
     void sendKeyboardCloseRequest();
+    void selectKeyboard(void);
+    void sendCurrentUser(QString user);
+    void resetHideTimer(void);
 
 
 
@@ -113,6 +119,8 @@ private slots:
 
     void on_cancelResetButton_clicked();
 
+    void userPasswordResetRequest();
+
 
 #ifdef SCREENKEYBOARD
     void focusChanged(QWidget *old, QWidget *now);
@@ -120,10 +128,30 @@ private slots:
 #endif
 
 
+
+    void on_showoldPwdButton_pressed();
+
+    void on_showoldPwdButton_released();
+
+    void on_shownewPwdButton_pressed();
+
+    void on_shownewPwdButton_released();
+
+    void on_showconfirmPwdButton_pressed();
+
+    void on_showconfirmPwdButton_released();
+
+    void on_pushButton_right_clicked();
+
+    void on_pushButton_left_clicked();
+
+    void on_passwordInput_textEdited(const QString &arg1);
+
+    void on_userInput_textEdited(const QString &arg1);
+
 private:
     void initialize();
-    QString currentSession();
-    void setCurrentSession(QString session);
+
 
     void checkPasswordResetButton();
     void initializeUserList();
@@ -136,6 +164,11 @@ private:
     void usersbuttonReposition();
     void loginPageTransition();
     void preparetoLogin();
+    QString readRealm();
+    bool ifLocalUser(QString username);
+    QString getUserRealm(QString username);
+    void debugBox(QString mes);
+    QString translateResetPwdMessage(QString message);
 
     Ui::LoginForm *ui;
 
@@ -149,6 +182,7 @@ private:
     QFrame *user_frame;
     QTimer *resetTimer;
     QTimer *loginTimer;
+    QTimer *userRequestResetTimer;
     QTimer *animationTimer;
     QMovie *mv;
     QShortcut *shortcut;
@@ -173,6 +207,7 @@ private:
     QString tmpPassword;
     int resetTimerState;
     int loginTimerState;
+    int userRequestTimerState;
     QString lastPrompt;
     QString lastMessage;
     bool loginStartFlag;
@@ -190,16 +225,32 @@ private:
     int lastkey;
 
     bool loginprompt;
+    bool userResetRequest;
+    bool systemResetRequest;
+    bool passwordChangeError;
     int nwcheckcount;
-    QRect left = QRect(50,25,100,110);
-    QRect center = QRect(155,10,120,140);
-    QRect right = QRect(280,25,100,110);
+    QString realM;
+    bool winClicked;
+    QString currentSessionStr;
+    bool ishidden = false;
+    bool justshowed = false;
+
+
+
+    QRect left = QRect(52,25,100,110);
+    QRect center = QRect(157,10,120,140);
+    QRect right = QRect(282,25,100,110);
     QPixmap iconPassive = QPixmap(":/resources/login_1_1.png");
     QPixmap iconActive = QPixmap(":/resources/login_1.png");
     QPixmap iconEmptyPassive = QPixmap(":/resources/login_1_1_bos.png");
     QPixmap iconEmptyActive = QPixmap(":/resources/login_1_bos.png");
 
+#if 0
 
+    QRect left = QRect(52,25,100,110);
+    QRect center = QRect(157,10,120,140);
+    QRect right = QRect(282,25,100,110);
+#endif
 
 
 };

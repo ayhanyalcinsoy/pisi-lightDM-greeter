@@ -45,11 +45,11 @@ void clockForm::updateClock(){
     ui->clockLabel->setText(tempstring);
 
 
-    tempstring = qdt->currentDateTime().toString("dddd");
-    ui->dayLabel->setText(tempstring.toUpper());
+    //tempstring = qdt->currentDateTime().toString("dddd");
+    //ui->dayLabel->setText(tempstring.toUpper());
 
-    tempstring = qdt->currentDateTime().toString(Qt::SystemLocaleShortDate);
-    //tempstring = qdt->currentDateTime().toString("dd.MM.yyyy");
+    //tempstring = qdt->currentDateTime().toString(Qt::SystemLocaleShortDate);
+    tempstring = qdt->currentDateTime().toString("dd.MM.yyyy");
     ui->dateLabel->setText(tempstring.section(' ', 0,0));
 
     timer->setInterval(1000);
