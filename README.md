@@ -1,18 +1,8 @@
-[![Build Status](https://api.travis-ci.com/aciklab/Hvl-Lightdm-Greeter.svg?branch=master)](https://travis-ci.com/aciklab/Hvl-Lightdm-Greeter)
-![GitHub All Releases](https://img.shields.io/github/downloads/aciklab/Hvl-Lightdm-Greeter/total.svg)
-![GitHub release](https://img.shields.io/github/release/aciklab/Hvl-Lightdm-Greeter.svg)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/aciklab/Hvl-Lightdm-Greeter.svg)
-![GitHub last commit](https://img.shields.io/github/last-commit/aciklab/Hvl-Lightdm-Greeter.svg)
-![GitHub](https://img.shields.io/github/tag/aciklab/Hvl-Lightdm-Greeter.svg)
-![GitHub](https://img.shields.io/github/license/aciklab/Hvl-Lightdm-Greeter.svg)
-
-# hvl-lightdm-greeter 
-
+# pisi-lightdm-greeter 
 [ENGLISH](https://github.com/aciklab/Hvl-Lightdm-Greeter/blob/master/README_EN.md)
-
 ## Tanım
 
-hvl-lightdm-greeter, lightdm yüklü sistemlerde kullanılabilecek bir giriş ekranı uygulamasıdır.  [qt-lightdm-greeter](https://github.com/surlykke/qt-lightdm-greeter) 'dan esinlenilerek c++ ve qt ile yazılmıştır.
+pisi-lightdm-greeter, C++ ve Qt5 dilinde yazılmış ve lightdm yüklü sistemlerde kullanılabilecek bir giriş ekranı uygulamasıdır.  [hvl-lightdm-greeter](https://github.com/aciklab/Hvl-Lightdm-Greeter) 'dan çatallanmıştır.
 
 Bu giriş ekranı, süresi dolmuş parolaları sıfırlama imkanı verebilmektedir (Windows aktif dizin hesapları ve yerel kullanıcı hesapları ile test edilmiştir). 
 Eğer bir parolanın değiştirlmesi gerekiyorsa giriş sırasında kullanıcının parolasını sıfırlaması istenir. Arkasından parola sıfırlama sayfası açılarak kullanıcının parolasını sıfırlaması sağlanır.
@@ -29,24 +19,8 @@ Eğer bir parolanın değiştirlmesi gerekiyorsa giriş sırasında kullanıcın
 * Maddeler konfigüre edilebilir dosya üzerinde tutulması.
 * Dokunmatik ekranlar için Ekran klavyesi seçeneği.
 
-Giriş ekranı Pardus 17.4 ve Xubuntu 18.04'de test edilmiştir.
+Giriş ekranı Pisi GNU/Linux üzerinde test edilmiştir.
 
-
-`Giriş ekranı`
-
-<img src="https://github.com/aciklab/Hvl-Lightdm-Greeter/raw/master/ss/loginpage_tr.jpg">
-
-`Kullanıcı seçimi`
-
-<img src="https://github.com/aciklab/Hvl-Lightdm-Greeter/raw/master/ss/userspage_tr.jpg">
-
-`Parola sıfırlama uyarısı`
-
-<img src="https://github.com/aciklab/Hvl-Lightdm-Greeter/raw/master/ss/prompt_tr.jpg">
-
-`Parola sıfırlama Sayfası`
-
-<img src="https://github.com/aciklab/Hvl-Lightdm-Greeter/raw/master/ss/reset_tr.jpg">
 
 ## Kurulum
 
@@ -71,8 +45,8 @@ paketlerinin sisteminizde kurulu olduğuna emin olun
 Kurulum için, aşağıdaki komutları çalıştırın:
 
 ```shell
-git clone https://github.com/mertcelen/Hvl-Lightdm-Greeter.git
-cd Hvl-Lightdm-Greeter
+git clone https://github.com/ayhanyalcinsoy/pisi-lightDM-greeter.git
+cd pisi-lightDM-greeter
 mkdir build && cd build
 cmake ..
 make 
@@ -80,24 +54,21 @@ sudo make install
 ```
  `/etc/lightdm/lightdm.conf`, dosyası içinde, `SeatDefaults` bölümü altına aşağıdaki satırı ekleyin ya da başka bir değere atanmışsa güncelleyin:
 
-    greeter-session=hvl-lightdm-greeter
+    greeter-session=pisi-lightdm-greeter
 
 Eğer böyle bir dosya mevcut değilse oluşturun.	
 
-### Pardus Onyedi üzerine kurulum
+### Pisi GNU/Linux üzerine kurulum
 
+Paket Yöneticisini kullanarak ya da terminalde aşağıdaki komut ile kurabilirsiniz:
 ```
-
-sudo echo "deb [arch=amd64] http://acikdepo.github.io/ onyedi main" > /etc/apt/sources.list.d/acikdepo.list
-sudo wget -qO - https://raw.githubusercontent.com/acikdepo/acikdepo.github.io/master/public.key | sudo apt-key add -
-sudo apt update
-sudo apt install lightdm-hvl-greeter
+sudo pisi it pisi-lightdm-greeter
 
 ```
 
 ## Yapılandırma
 
-`/usr/share/lightdm/lightdm-hvl-greeter.conf.d/hvl-lightdm-greeter.conf` dosyası içinde kullanılabilecek çeşitli konfigürasyon seçenekleri bulunmaktadır. Örnek olarak: 
+`/usr/share/lightdm/lightdm-pisi-greeter.conf.d/pisi-lightdm-greeter.conf` dosyası içinde kullanılabilecek çeşitli konfigürasyon seçenekleri bulunmaktadır. Örnek olarak: 
 	-Arka plan resmi, 
 	-Giriş, saat ve ayar formlarının pozisyonları, 
 	-Beklenmesi gereken servisler vb..

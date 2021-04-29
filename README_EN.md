@@ -4,27 +4,11 @@
 
 ## Destination
 
-hvl-lightdm-greeter is a login application for the lightdm displaymanager, written in c++ and qt5. This project inspired by [qt-lightdm-greeter](https://github.com/surlykke/qt-lightdm-greeter) 
+pisi-lightdm-greeter is a login application for the lightdm displaymanager, written in c++ and qt5. This project forked from [hvl-lightdm-greeter](https://github.com/aciklab/Hvl-Lightdm-Greeter). 
 
 This greeter provides to reset expired passwords (Tested with Windows active directory accounts and local accounts). If a password expired. greeter opens password reset page and prompt user to reset password.
 
-Tested on Pardus 17.4 and Xubuntu 18.04
-
-`Login screen`
-
-<img src="https://github.com/aciklab/Hvl-Lightdm-Greeter/raw/master/ss/loginpage_tr.jpg">
-
-`Users screen`
-
-<img src="https://github.com/aciklab/Hvl-Lightdm-Greeter/raw/master/ss/userspage_en.jpg">
-
-`Prompt screen`
-
-<img src="https://github.com/aciklab/Hvl-Lightdm-Greeter/raw/master/ss/prompt_en.jpg">
-
-`Password reset screen`
-
-<img src="https://github.com/aciklab/Hvl-Lightdm-Greeter/raw/master/ss/reset_en.jpg">
+Tested on Pisi GNU/Linux
 
 ## Installing
 
@@ -48,8 +32,8 @@ For running, dependencies are : lightdm, libqt5webenginewidgets5, liblightdm-qt5
 To install, do:
     
 ```shell
-git clone https://github.com/mertcelen/Hvl-Lightdm-Greeter.git
-cd Hvl-Lightdm-Greeter
+git clone https://github.com/ayhanyalcinsoy/pisi-lightDM-greeter.git
+cd pisi-lightDM-greeter
 mkdir build
 cd build
 cmake ..
@@ -59,21 +43,21 @@ sudo make install
 
 Update or insert in(to) your `/etc/lightdm/lightdm.conf`, in the `SeatDefaults` section, this line:
 
-    greeter-session=hvl-lightdm-greeter
+    greeter-session=pisi-lightdm-greeter
 
 If this file is not exist create new one.	
 
-### on Pardus Onyedi
+### on Pisi GNU/Linux
+Installable using Package Manager or typing following command on terminal.
 
-```sudo echo "deb [arch=amd64] http://acikdepo.github.io/ onyedi main" > /etc/apt/sources.list.d/acikdepo.list
-sudo wget -qO - https://raw.githubusercontent.com/acikdepo/acikdepo.github.io/master/public.key | sudo apt-key add -
-sudo apt update
-sudo apt install lightdm-hvl-greeter
+```
+sudo pisi it pisi-lightdm-greeter
+
 ```
 	
 ## Configuration
 
-The file `/usr/share/lightdm/lightdm-hvl-greeter.conf.d/hvl-lightdm-greeter.conf` allows to configure hvl-lightdm-greeter. For example: 
+The file `/usr/share/lightdm/lightdm-pisi-greeter.conf.d/pisi-lightdm-greeter.conf` allows to configure pisi-lightdm-greeter. For example: 
 	-background-image, 
 	-positioning of loginform, settingsform and clockform. 
 	-System services to wait etc.
