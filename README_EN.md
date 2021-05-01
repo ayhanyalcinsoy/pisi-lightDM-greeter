@@ -1,4 +1,4 @@
-# hvl-lightdm-greeter 
+# pisi-lightdm-greeter 
 
 [TÜRKÇE](https://github.com/aciklab/Hvl-Lightdm-Greeter/)
 
@@ -62,3 +62,5 @@ The file `/usr/share/lightdm/lightdm-pisi-greeter.conf.d/pisi-lightdm-greeter.co
 	-positioning of loginform, settingsform and clockform. 
 	-System services to wait etc.
 The configuration options are documented in that file.
+
+<img src="https://raw.githubusercontent.com/ayhanyalcinsoy/pisi-lightDM-greeter/master/ss/screen_shoot.jpg">
