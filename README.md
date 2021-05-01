@@ -1,5 +1,5 @@
 # pisi-lightdm-greeter 
-[ENGLISH](https://github.com/aciklab/Hvl-Lightdm-Greeter/blob/master/README_EN.md)
+[ENGLISH](https://github.com/ayhanyalcinsoy/pisi-lightDM-greeter/blob/master/README_EN.md)
 ## Tanım
 
 pisi-lightdm-greeter, C++ ve Qt5 dilinde yazılmış ve lightdm yüklü sistemlerde kullanılabilecek bir giriş ekranı uygulamasıdır.  [hvl-lightdm-greeter](https://github.com/aciklab/Hvl-Lightdm-Greeter) 'dan çatallanmıştır.
