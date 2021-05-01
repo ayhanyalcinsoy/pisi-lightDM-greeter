@@ -73,3 +73,5 @@ sudo pisi it pisi-lightdm-greeter
 	-Giriş, saat ve ayar formlarının pozisyonları, 
 	-Beklenmesi gereken servisler vb..
 Bu dosya içinde detaylı açıklamalar yapılmıştır. 
+
+<img src="https://raw.githubusercontent.com/ayhanyalcinsoy/pisi-lightDM-greeter/master/ss/screen_shoot.jpg">
