@@ -1,6 +1,6 @@
 # pisi-lightdm-greeter 
 
-[TÜRKÇE](https://github.com/aciklab/Hvl-Lightdm-Greeter/)
+[TÜRKÇE](https://github.com/ayhanyalcinsoy/pisi-lightDM-greeter/)
 
 ## Destination
 
